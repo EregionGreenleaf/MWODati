@@ -129,5 +129,37 @@ namespace MWODati
 
             return string.Empty;
         }
+
+        public void SelezioneStagione(int stagione)
+        {
+            switch (stagione)
+            {
+                case 1:
+                    stagioneRicerca = Config.Season1URL;
+                    datiStagioneSelezionata = Config.fileSeason1;
+                    break;
+                case 2:
+                    stagioneRicerca = Config.Season2URL;
+                    datiStagioneSelezionata = Config.fileSeason2;
+                    break;
+                case 3:
+                    stagioneRicerca = Config.Season3URL;
+                    datiStagioneSelezionata = Config.fileSeason3;
+                    break;
+                case 4:
+                    stagioneRicerca = Config.Season4URL;
+                    datiStagioneSelezionata = Config.fileSeason4;
+                    break;
+                default:
+                    stagioneRicerca = Config.Season1URL;
+                    break;
+            }
+
+        }
+
+        public static void AggiornaDati(int stagione)
+        {
+
+        }
     }
 }
