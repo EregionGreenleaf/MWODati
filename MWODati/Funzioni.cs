@@ -42,51 +42,34 @@ namespace MWODati
         /// <returns></returns>
         public static string RicercaDB(int stagione, string nome)
         {
-            string stagioneRicerca = string.Empty;
-            string[] datiStagioneSelezionata = null;
             string[] stringa = null;
             string ritorno = string.Empty;
             Boolean trovato = false;
-            switch (stagione)
+            if(Config.StagioniComplete[stagione - 1] != null)
             {
-                case 1:
-                    stagioneRicerca = Config.Season1URL;
-                    datiStagioneSelezionata = Config.fileSeason1;
-                    break;
-                case 2:
-                    stagioneRicerca = Config.Season2URL;
-                    datiStagioneSelezionata = Config.fileSeason2;
-                    break;
-                case 3:
-                    stagioneRicerca = Config.Season3URL;
-                    datiStagioneSelezionata = Config.fileSeason3;
-                    break;
-                case 4:
-                    stagioneRicerca = Config.Season4URL;
-                    datiStagioneSelezionata = Config.fileSeason4;
-                    break;
-                default:
-                    stagioneRicerca = Config.Season1URL;
-                    break;
-            }
-
-            foreach (var tr in datiStagioneSelezionata)
-            {
-                stringa = Funzioni.Parsificatore(tr);
-                if (stringa[1] == nome)
+//                foreach (var tr in datiStagioneSelezionata)
+                foreach (var tr in Config.StagioniComplete[stagione-1])
                 {
-                    //AGGIUNTA 'STAGIONE' all'Array
-                    int numeroElementi = stringa.Count() - 1;
-                    stringa[numeroElementi] = $"{stagione}";
-                    //STAMPA
-                    ritorno = $"{Environment.NewLine}{stringa[1]}{Environment.NewLine}STAGIONE {stagione}:{Environment.NewLine}Posizione:\t{stringa[0]}{Environment.NewLine}Vittorie:\t\t{stringa[2]}{Environment.NewLine}Sconfitte:\t{stringa[3]}{Environment.NewLine}Rapporto V/S:\t{stringa[4]}{Environment.NewLine}Kill:\t\t{stringa[5]}{Environment.NewLine}Death:\t\t{stringa[6]}{Environment.NewLine}Rapporto K/D:\t{stringa[7]}{Environment.NewLine}Partite:\t\t{stringa[8]}{Environment.NewLine}MS Medio:\t{stringa[9]}";
-                    trovato = true;
-                    break;
+                    stringa = Funzioni.Parsificatore(tr);
+                    if (stringa[1] == nome)
+                    {
+                        //AGGIUNTA 'STAGIONE' all'Array
+                        int numeroElementi = stringa.Count() - 1;
+                        stringa[numeroElementi] = $"{stagione}";
+                        //STAMPA
+                        ritorno = $"{Environment.NewLine}{stringa[1]}{Environment.NewLine}STAGIONE {stagione}:{Environment.NewLine}Posizione:\t{stringa[0]}{Environment.NewLine}Vittorie:\t\t{stringa[2]}{Environment.NewLine}Sconfitte:\t{stringa[3]}{Environment.NewLine}Rapporto V/S:\t{stringa[4]}{Environment.NewLine}Kill:\t\t{stringa[5]}{Environment.NewLine}Death:\t\t{stringa[6]}{Environment.NewLine}Rapporto K/D:\t{stringa[7]}{Environment.NewLine}Partite:\t\t{stringa[8]}{Environment.NewLine}MS Medio:\t{stringa[9]}";
+                        trovato = true;
+                        break;
+                    }
+                }
+                if (trovato == false)
+                {
+                    ritorno = string.Empty;
                 }
             }
-            if (trovato == false)
+            else
             {
-                ritorno = string.Empty;
+                ritorno = $"Stagione non trovata.{Environment.NewLine}";
             }
             return ritorno;
         }
@@ -130,36 +113,51 @@ namespace MWODati
             return string.Empty;
         }
 
-        public void SelezioneStagione(int stagione)
+        public static void SelezioneStagione(int stagione)
         {
-            switch (stagione)
-            {
-                case 1:
-                    stagioneRicerca = Config.Season1URL;
-                    datiStagioneSelezionata = Config.fileSeason1;
-                    break;
-                case 2:
-                    stagioneRicerca = Config.Season2URL;
-                    datiStagioneSelezionata = Config.fileSeason2;
-                    break;
-                case 3:
-                    stagioneRicerca = Config.Season3URL;
-                    datiStagioneSelezionata = Config.fileSeason3;
-                    break;
-                case 4:
-                    stagioneRicerca = Config.Season4URL;
-                    datiStagioneSelezionata = Config.fileSeason4;
-                    break;
-                default:
-                    stagioneRicerca = Config.Season1URL;
-                    break;
-            }
 
         }
 
-        public static void AggiornaDati(int stagione)
+        public static Boolean AggiornaDati(int stagione)
         {
+            try
+            {
+                Config.StagioniComplete[stagione - 1] = retriveData(Config.StagioniURL[stagione - 1]);
 
+                //switch (stagione)
+                //{
+                //    case 1:
+                //        //Config.fileSeason1 = retriveData(Config.Season1URL);
+                //        //Config.StagioniComplete[stagione - 1] = Config.fileSeason1;
+                //        Config.StagioniComplete[stagione - 1] = retriveData(Config.StagioniURL[stagione-1]);
+                //        break;
+                //    case 2:
+                //        Config.fileSeason2 = retriveData(Config.Season2URL);
+                //        Config.StagioniComplete[stagione - 1] = Config.fileSeason2;
+
+                //        break;
+                //    case 3:
+                //        Config.fileSeason3 = retriveData(Config.Season3URL);
+                //        Config.StagioniComplete[stagione - 1] = Config.fileSeason1;
+
+                //        break;
+                //    case 4:
+                //        Config.fileSeason4 = retriveData(Config.Season4URL);
+                //        Config.StagioniComplete[stagione - 1] = Config.fileSeason1;
+
+                //        break;
+                //    default:
+                //        //retriveData(Config.Season4URL);
+                //        return false;
+                //        //break;
+                //}
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
     }
 }

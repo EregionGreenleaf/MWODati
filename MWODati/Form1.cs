@@ -25,14 +25,23 @@ namespace MWODati
             InitializeComponent();
             try
             {
-                string url = Config.Season3URL;
-                Config.fileSeason3 = Funzioni.retriveData(url);
+                //string url = Config.Season1URL;
+                //Config.fileSeason1 = Funzioni.retriveData(url);
+                //Config.StagioniComplete.Add(Config.fileSeason1);
 
-                url = Config.Season2URL;
-                Config.fileSeason2 = Funzioni.retriveData(url);
+                //url = Config.Season2URL;
+                //Config.fileSeason2 = Funzioni.retriveData(url);
+                //Config.StagioniComplete.Add(Config.fileSeason2);
 
-                url = Config.Season1URL;
-                Config.fileSeason1 = Funzioni.retriveData(url);
+                //url = Config.Season3URL;
+                //Config.fileSeason3 = Funzioni.retriveData(url);
+                //Config.StagioniComplete.Add(Config.fileSeason3);
+
+                int i = 1;
+                while (Funzioni.AggiornaDati(i))
+                {
+                    i += 1;
+                }
             }
             catch
             {
@@ -46,7 +55,7 @@ namespace MWODati
             risultato += Funzioni.Ricerca(2, txtNomeRicerca.Text);
             txtRisultato.Text = risultato;
             chart1.Series.Clear();
-            chart1.Series.Add(xx);
+            //chart1.Series.Add(xx);
         }
 
         private void chbGeneral_CheckedChanged(object sender, EventArgs e)

@@ -14,10 +14,15 @@ namespace MWODati
         public static string Season2URL = "http://www.loschupacabras.netsons.org/Season123/MWOl_Season_02_GENERAL.txt";
         public static string Season3URL = "http://www.loschupacabras.netsons.org/Season123/MWOl_Season_03_GENERAL.txt";
         public static string Season4URL = "http://www.loschupacabras.netsons.org/Season123/MWOl_Season_04_GENERAL.txt";
+        public static string SeasonLastURL = "http://www.loschupacabras.netsons.org/Season123/MWOl_Season_04_GENERAL.txt";
 
         public static string[] fileSeason1 { get; set; } = null;
         public static string[] fileSeason2 { get; set; } = null;
         public static string[] fileSeason3 { get; set; } = null;
         public static string[] fileSeason4 { get; set; } = null;
+
+
+        public static List<string[]> StagioniComplete = new List<string[]> { fileSeason1, fileSeason2, fileSeason3, fileSeason4 };
+        public static List<string> StagioniURL = new List<string> { Season1URL, Season2URL, Season3URL, Season4URL };
     }
 }
